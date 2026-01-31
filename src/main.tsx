@@ -3,10 +3,19 @@ import { createRoot } from 'react-dom/client'
 import { ThemeProvider } from './contexts/ThemeContext'
 import App from './App.tsx'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </StrictMode>,
-)
+async function enableMocking() {
+  if (import.meta.env.DEV) {
+    const { worker } = await import('./mocks/browser')
+    return worker.start({ onUnhandledRequest: 'bypass' })
+  }
+}
+
+enableMocking().then(() => {
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </StrictMode>,
+  )
+})

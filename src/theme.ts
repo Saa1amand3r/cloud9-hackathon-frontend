@@ -1,48 +1,48 @@
 import { createTheme } from '@mui/material/styles';
 import type { ThemeOptions, PaletteMode } from '@mui/material/styles';
 
-// Semantic color palette - consistent meaning across the app
+// Semantic color palette - deep, muted tones with transparency support
 const semanticColors = {
-  // Primary accent - Info / Neutral insight
+  // Primary accent - Info / Neutral insight (deep teal-blue)
   accent: {
-    main: '#2781BF',
-    light: '#4A9BD1',
-    dark: '#1E6799',
+    main: '#1a5f7a',
+    light: '#2d7d9a',
+    dark: '#134a5e',
     contrastText: '#FFFFFF',
   },
-  // Positive / Advantage / High win rate
+  // Positive / Advantage / High win rate (deep emerald)
   positive: {
-    main: '#22C55E',
-    light: '#4ADE80',
-    dark: '#16A34A',
+    main: '#166534',
+    light: '#22804a',
+    dark: '#14532d',
     contrastText: '#FFFFFF',
   },
-  // Warning / Volatile / Uncertain
+  // Warning / Volatile / Uncertain (deep amber)
   warning: {
-    main: '#F59E0B',
-    light: '#FBBF24',
-    dark: '#D97706',
-    contrastText: '#000000',
+    main: '#b45309',
+    light: '#d97706',
+    dark: '#92400e',
+    contrastText: '#FFFFFF',
   },
-  // Danger / Punish / High threat
+  // Danger / Punish / High threat (deep crimson)
   danger: {
-    main: '#EF4444',
-    light: '#F87171',
-    dark: '#DC2626',
+    main: '#991b1b',
+    light: '#b91c1c',
+    dark: '#7f1d1d',
     contrastText: '#FFFFFF',
   },
-  // New / Changed since last patch
+  // New / Changed since last patch (deep purple)
   highlight: {
-    main: '#A855F7',
-    light: '#C084FC',
-    dark: '#9333EA',
+    main: '#6b21a8',
+    light: '#7e22ce',
+    dark: '#581c87',
     contrastText: '#FFFFFF',
   },
-  // Inactive / Historical / Disabled
+  // Inactive / Historical / Disabled (deep slate)
   muted: {
-    main: '#6B7280',
-    light: '#9CA3AF',
-    dark: '#4B5563',
+    main: '#475569',
+    light: '#64748b',
+    dark: '#334155',
     contrastText: '#FFFFFF',
   },
 };
@@ -57,61 +57,56 @@ const darkPalette = {
   info: semanticColors.accent,
   success: semanticColors.positive,
   background: {
-    default: '#0F1117',      // Near-black / charcoal
-    paper: '#1A1D24',        // Slightly lighter charcoal for cards/surfaces
+    default: '#080a0e',      // Deep near-black
+    paper: 'rgba(18, 22, 30, 0.85)',  // Translucent dark surface
   },
-  divider: 'rgba(255, 255, 255, 0.08)',  // Subtle gray borders
+  divider: 'rgba(255, 255, 255, 0.06)',  // Subtle borders
   text: {
-    primary: '#F1F5F9',      // Off-white for primary text
-    secondary: '#94A3B8',    // Muted gray for secondary text
-    disabled: '#475569',     // Disabled text
+    primary: '#e2e8f0',      // Soft off-white for primary text
+    secondary: '#8b9ab5',    // Muted slate for secondary text
+    disabled: '#4a5568',     // Disabled text
   },
   action: {
-    active: '#F1F5F9',
-    hover: 'rgba(39, 129, 191, 0.08)',
-    selected: 'rgba(39, 129, 191, 0.16)',
-    disabled: '#475569',
-    disabledBackground: 'rgba(255, 255, 255, 0.04)',
+    active: '#e2e8f0',
+    hover: 'rgba(26, 95, 122, 0.12)',
+    selected: 'rgba(26, 95, 122, 0.20)',
+    disabled: '#4a5568',
+    disabledBackground: 'rgba(255, 255, 255, 0.03)',
   },
 };
 
 // Light theme palette - alternative for accessibility
 const lightPalette = {
   mode: 'light' as PaletteMode,
-  primary: {
-    main: '#2781BF',
-    light: '#4A9BD1',
-    dark: '#1E6799',
-    contrastText: '#FFFFFF',
-  },
+  primary: semanticColors.accent,
   secondary: semanticColors.highlight,
   error: semanticColors.danger,
   warning: semanticColors.warning,
   info: semanticColors.accent,
   success: semanticColors.positive,
   background: {
-    default: '#F8FAFC',      // Light gray background
-    paper: '#FFFFFF',        // White for cards/surfaces
+    default: '#f0f4f8',      // Soft cool gray background
+    paper: 'rgba(255, 255, 255, 0.85)',  // Translucent white for cards/surfaces
   },
-  divider: 'rgba(0, 0, 0, 0.08)',  // Subtle gray borders
+  divider: 'rgba(0, 0, 0, 0.06)',  // Subtle borders
   text: {
-    primary: '#0F172A',      // Near-black for primary text
-    secondary: '#64748B',    // Muted gray for secondary text
-    disabled: '#94A3B8',     // Disabled text
+    primary: '#1a202c',      // Deep charcoal for primary text
+    secondary: '#4a5568',    // Muted slate for secondary text
+    disabled: '#a0aec0',     // Disabled text
   },
   action: {
-    active: '#0F172A',
-    hover: 'rgba(39, 129, 191, 0.08)',
-    selected: 'rgba(39, 129, 191, 0.12)',
-    disabled: '#94A3B8',
-    disabledBackground: 'rgba(0, 0, 0, 0.04)',
+    active: '#1a202c',
+    hover: 'rgba(26, 95, 122, 0.08)',
+    selected: 'rgba(26, 95, 122, 0.14)',
+    disabled: '#a0aec0',
+    disabledBackground: 'rgba(0, 0, 0, 0.03)',
   },
 };
 
 // Shared typography configuration
 const typography = {
   fontFamily: [
-    'Inter',
+    'Nunito',
     '-apple-system',
     'BlinkMacSystemFont',
     '"Segoe UI"',
@@ -158,7 +153,7 @@ const typography = {
     lineHeight: 1.5,
   },
   subtitle2: {
-    fontSize: '0.875rem',
+    fontSize: '1rem',
     fontWeight: 500,
     lineHeight: 1.5,
   },
@@ -168,7 +163,7 @@ const typography = {
     lineHeight: 1.5,
   },
   body2: {
-    fontSize: '0.875rem',
+    fontSize: '1rem',
     fontWeight: 400,
     lineHeight: 1.5,
   },
@@ -196,18 +191,28 @@ const typography = {
 const getComponentOverrides = (mode: PaletteMode): ThemeOptions['components'] => ({
   MuiCssBaseline: {
     styleOverrides: {
+      '@keyframes slideUpFadeIn': {
+        '0%': {
+          opacity: 0,
+          transform: 'translateY(30px)',
+        },
+        '100%': {
+          opacity: 1,
+          transform: 'translateY(0)',
+        },
+      },
       body: {
-        scrollbarColor: mode === 'dark' ? '#374151 #1A1D24' : '#CBD5E1 #F1F5F9',
+        scrollbarColor: mode === 'dark' ? '#2d3748 #080a0e' : '#cbd5e0 #f0f4f8',
         '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
           width: 8,
           height: 8,
         },
         '&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb': {
           borderRadius: 4,
-          backgroundColor: mode === 'dark' ? '#374151' : '#CBD5E1',
+          backgroundColor: mode === 'dark' ? '#2d3748' : '#cbd5e0',
         },
         '&::-webkit-scrollbar-track, & *::-webkit-scrollbar-track': {
-          backgroundColor: mode === 'dark' ? '#1A1D24' : '#F1F5F9',
+          backgroundColor: mode === 'dark' ? '#080a0e' : '#f0f4f8',
         },
       },
     },
@@ -236,13 +241,23 @@ const getComponentOverrides = (mode: PaletteMode): ThemeOptions['components'] =>
   MuiCard: {
     styleOverrides: {
       root: {
-        borderRadius: 12,
+        borderRadius: 16,
+        backdropFilter: 'blur(12px)',
         boxShadow: mode === 'dark'
-          ? '0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3)'
-          : '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06)',
+          ? '0 4px 20px rgba(26, 95, 122, 0.15), 0 2px 8px rgba(0, 0, 0, 0.3)'
+          : '0 4px 20px rgba(26, 95, 122, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06)',
         border: mode === 'dark'
-          ? '1px solid rgba(255, 255, 255, 0.05)'
-          : '1px solid rgba(0, 0, 0, 0.05)',
+          ? '1px solid rgba(255, 255, 255, 0.06)'
+          : '1px solid rgba(0, 0, 0, 0.04)',
+        animation: 'slideUpFadeIn 0.5s ease-out forwards',
+        opacity: 0,
+        transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+        '&:hover': {
+          boxShadow: mode === 'dark'
+            ? '0 8px 32px rgba(26, 95, 122, 0.25), 0 4px 12px rgba(0, 0, 0, 0.4)'
+            : '0 8px 32px rgba(26, 95, 122, 0.20), 0 4px 12px rgba(0, 0, 0, 0.08)',
+          transform: 'translateY(-2px)',
+        },
       },
     },
   },
@@ -250,9 +265,10 @@ const getComponentOverrides = (mode: PaletteMode): ThemeOptions['components'] =>
     styleOverrides: {
       root: {
         backgroundImage: 'none',
+        backdropFilter: 'blur(12px)',
       },
       rounded: {
-        borderRadius: 12,
+        borderRadius: 16,
       },
     },
   },
@@ -283,15 +299,16 @@ const getComponentOverrides = (mode: PaletteMode): ThemeOptions['components'] =>
   MuiTooltip: {
     styleOverrides: {
       tooltip: {
-        backgroundColor: mode === 'dark' ? '#374151' : '#1E293B',
-        color: '#F1F5F9',
+        backgroundColor: mode === 'dark' ? 'rgba(30, 35, 45, 0.95)' : 'rgba(26, 32, 44, 0.95)',
+        color: '#e2e8f0',
         fontSize: '0.75rem',
         fontWeight: 500,
-        borderRadius: 6,
-        padding: '6px 12px',
+        borderRadius: 8,
+        padding: '8px 14px',
+        backdropFilter: 'blur(8px)',
       },
       arrow: {
-        color: mode === 'dark' ? '#374151' : '#1E293B',
+        color: mode === 'dark' ? 'rgba(30, 35, 45, 0.95)' : 'rgba(26, 32, 44, 0.95)',
       },
     },
   },
@@ -308,12 +325,12 @@ const getComponentOverrides = (mode: PaletteMode): ThemeOptions['components'] =>
     styleOverrides: {
       root: {
         borderColor: mode === 'dark'
-          ? 'rgba(255, 255, 255, 0.06)'
-          : 'rgba(0, 0, 0, 0.06)',
+          ? 'rgba(255, 255, 255, 0.05)'
+          : 'rgba(0, 0, 0, 0.05)',
       },
       head: {
         fontWeight: 600,
-        backgroundColor: mode === 'dark' ? '#1A1D24' : '#F8FAFC',
+        backgroundColor: mode === 'dark' ? 'rgba(18, 22, 30, 0.9)' : 'rgba(240, 244, 248, 0.9)',
       },
     },
   },
@@ -322,8 +339,8 @@ const getComponentOverrides = (mode: PaletteMode): ThemeOptions['components'] =>
       root: {
         '&:hover': {
           backgroundColor: mode === 'dark'
-            ? 'rgba(39, 129, 191, 0.04)'
-            : 'rgba(39, 129, 191, 0.04)',
+            ? 'rgba(26, 95, 122, 0.06)'
+            : 'rgba(26, 95, 122, 0.04)',
         },
       },
     },
@@ -341,27 +358,28 @@ const getComponentOverrides = (mode: PaletteMode): ThemeOptions['components'] =>
   MuiAlert: {
     styleOverrides: {
       root: {
-        borderRadius: 8,
+        borderRadius: 10,
+        backdropFilter: 'blur(8px)',
       },
       standardInfo: {
         backgroundColor: mode === 'dark'
-          ? 'rgba(39, 129, 191, 0.15)'
-          : 'rgba(39, 129, 191, 0.1)',
+          ? 'rgba(26, 95, 122, 0.18)'
+          : 'rgba(26, 95, 122, 0.12)',
       },
       standardSuccess: {
         backgroundColor: mode === 'dark'
-          ? 'rgba(34, 197, 94, 0.15)'
-          : 'rgba(34, 197, 94, 0.1)',
+          ? 'rgba(22, 101, 52, 0.18)'
+          : 'rgba(22, 101, 52, 0.12)',
       },
       standardWarning: {
         backgroundColor: mode === 'dark'
-          ? 'rgba(245, 158, 11, 0.15)'
-          : 'rgba(245, 158, 11, 0.1)',
+          ? 'rgba(180, 83, 9, 0.18)'
+          : 'rgba(180, 83, 9, 0.12)',
       },
       standardError: {
         backgroundColor: mode === 'dark'
-          ? 'rgba(239, 68, 68, 0.15)'
-          : 'rgba(239, 68, 68, 0.1)',
+          ? 'rgba(153, 27, 27, 0.18)'
+          : 'rgba(153, 27, 27, 0.12)',
       },
     },
   },
@@ -411,10 +429,11 @@ const getComponentOverrides = (mode: PaletteMode): ThemeOptions['components'] =>
   MuiMenu: {
     styleOverrides: {
       paper: {
-        borderRadius: 8,
+        borderRadius: 12,
         boxShadow: mode === 'dark'
-          ? '0 4px 20px rgba(0, 0, 0, 0.5)'
-          : '0 4px 20px rgba(0, 0, 0, 0.1)',
+          ? '0 8px 32px rgba(26, 95, 122, 0.15), 0 4px 16px rgba(0, 0, 0, 0.4)'
+          : '0 8px 32px rgba(26, 95, 122, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08)',
+        backdropFilter: 'blur(12px)',
       },
     },
   },
@@ -430,11 +449,11 @@ const getComponentOverrides = (mode: PaletteMode): ThemeOptions['components'] =>
   MuiListItemButton: {
     styleOverrides: {
       root: {
-        borderRadius: 8,
+        borderRadius: 10,
         '&.Mui-selected': {
-          backgroundColor: 'rgba(39, 129, 191, 0.12)',
+          backgroundColor: 'rgba(26, 95, 122, 0.15)',
           '&:hover': {
-            backgroundColor: 'rgba(39, 129, 191, 0.16)',
+            backgroundColor: 'rgba(26, 95, 122, 0.22)',
           },
         },
       },
