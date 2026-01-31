@@ -1,7 +1,11 @@
+import { useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { useThemeMode } from './contexts/ThemeContext';
 import { Dashboard } from './pages';
+import { LoginCard, SearchPage, ReportLoading } from './components/flow';
+
+type FlowState = 'login' | 'search' | 'loading' | 'dashboard';
 
 const LightModeIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -17,6 +21,58 @@ const DarkModeIcon = () => (
 
 function App() {
   const { mode, toggleTheme } = useThemeMode();
+  const [flowState, setFlowState] = useState<FlowState>('login');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const handleLogin = useCallback(() => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setFlowState('search');
+      setIsTransitioning(false);
+    }, 300);
+  }, []);
+
+  const handleSearch = useCallback((teamName: string) => {
+    setSearchQuery(teamName);
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setFlowState('loading');
+      setIsTransitioning(false);
+    }, 300);
+  }, []);
+
+  const handleLoadingComplete = useCallback(() => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setFlowState('dashboard');
+      setIsTransitioning(false);
+    }, 300);
+  }, []);
+
+  const handleNewSearch = useCallback(() => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setFlowState('search');
+      setSearchQuery('');
+      setIsTransitioning(false);
+    }, 300);
+  }, []);
+
+  const renderContent = () => {
+    switch (flowState) {
+      case 'login':
+        return <LoginCard onLogin={handleLogin} />;
+      case 'search':
+        return <SearchPage onSearch={handleSearch} />;
+      case 'loading':
+        return <ReportLoading teamName={searchQuery} onComplete={handleLoadingComplete} />;
+      case 'dashboard':
+        return <Dashboard searchQuery={searchQuery} onNewSearch={handleNewSearch} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <Box sx={{ minHeight: '100vh' }}>
@@ -39,7 +95,16 @@ function App() {
         {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
       </IconButton>
 
-      <Dashboard />
+      {/* Content with fade transition */}
+      <Box
+        sx={{
+          opacity: isTransitioning ? 0 : 1,
+          transform: isTransitioning ? 'translateY(10px)' : 'translateY(0)',
+          transition: 'opacity 0.3s ease-out, transform 0.3s ease-out',
+        }}
+      >
+        {renderContent()}
+      </Box>
     </Box>
   );
 }
