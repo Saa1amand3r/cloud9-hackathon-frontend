@@ -20,13 +20,14 @@ export function PlayerAnalysisSection({ data }: PlayerAnalysisSectionProps) {
       />
 
       <Card>
-        <CardContent>
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5 }}>
+        <CardContent sx={{ p: 3 }}>
+          <Box sx={{ mb: 3 }}>
+            <Typography sx={{ fontWeight: 600, mb: 1, fontSize: '1.25rem' }}>
               Player Volatility (Entropy)
             </Typography>
-            <Typography variant="caption" color="text.secondary">
-              Higher entropy indicates a wider champion pool and less predictable picks
+            <Typography color="text.secondary" sx={{ fontSize: '1rem', lineHeight: 1.6 }}>
+              Higher entropy indicates a wider champion pool and less predictable picks.
+              Players with high volatility may surprise with pocket picks.
             </Typography>
           </Box>
 

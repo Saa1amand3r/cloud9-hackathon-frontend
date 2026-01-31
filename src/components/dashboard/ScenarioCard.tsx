@@ -25,17 +25,14 @@ export function ScenarioCard({ scenario, sx }: ScenarioCardProps) {
   const { likelihood, winrate, stats, punishStrategy, name, description } = scenario;
   const actionConfig = actionLabels[punishStrategy.action];
 
-  // Glass fill effect - higher likelihood = more fill
-  const fillPercent = likelihood;
-
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        minWidth: 240,
-        maxWidth: 300,
-        flex: '1 1 240px',
+        minWidth: 280,
+        maxWidth: 340,
+        flex: '1 1 280px',
         ...sx,
       }}
     >
@@ -44,13 +41,13 @@ export function ScenarioCard({ scenario, sx }: ScenarioCardProps) {
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          mb: 1,
+          mb: 1.5,
         }}
       >
         <Box
           sx={{
-            px: 2.5,
-            py: 0.75,
+            px: 3,
+            py: 1,
             borderRadius: 2,
             bgcolor: `${semanticColors.accent.main}25`,
             border: '2px solid',
@@ -58,23 +55,24 @@ export function ScenarioCard({ scenario, sx }: ScenarioCardProps) {
           }}
         >
           <Typography
-            variant="h5"
             sx={{
               fontWeight: 700,
               color: semanticColors.accent.main,
               fontVariantNumeric: 'tabular-nums',
               textAlign: 'center',
+              fontSize: '1.75rem',
+              lineHeight: 1.2,
             }}
           >
             {likelihood}%
           </Typography>
           <Typography
-            variant="caption"
             sx={{
               display: 'block',
               textAlign: 'center',
               color: 'text.secondary',
               fontWeight: 500,
+              fontSize: '0.9rem',
             }}
           >
             Likelihood
@@ -85,8 +83,6 @@ export function ScenarioCard({ scenario, sx }: ScenarioCardProps) {
       {/* Main Card */}
       <Box
         sx={{
-          position: 'relative',
-          overflow: 'hidden',
           borderRadius: 3,
           border: '1px solid',
           borderColor: 'divider',
@@ -94,34 +90,18 @@ export function ScenarioCard({ scenario, sx }: ScenarioCardProps) {
           flex: 1,
         }}
       >
-        {/* Glass fill effect background - more visible */}
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: `${fillPercent}%`,
-            background: `linear-gradient(to top, ${semanticColors.accent.main}35, ${semanticColors.accent.main}15)`,
-            transition: 'height 0.8s ease-out',
-            pointerEvents: 'none',
-          }}
-        />
-
         {/* Content */}
-        <Box sx={{ position: 'relative', p: 2.5 }}>
+        <Box sx={{ p: 3 }}>
           {/* Title */}
           <Typography
-            variant="h6"
-            sx={{ fontWeight: 600, textAlign: 'center', mb: 0.5, fontSize: '1.1rem' }}
+            sx={{ fontWeight: 600, textAlign: 'center', mb: 0.5, fontSize: '1.35rem' }}
           >
             {name}
           </Typography>
           {description && (
             <Typography
-              variant="body2"
               color="text.secondary"
-              sx={{ display: 'block', textAlign: 'center', mb: 2, lineHeight: 1.4 }}
+              sx={{ display: 'block', textAlign: 'center', mb: 2.5, lineHeight: 1.5, fontSize: '1rem' }}
             >
               {description}
             </Typography>
@@ -132,55 +112,54 @@ export function ScenarioCard({ scenario, sx }: ScenarioCardProps) {
             sx={{
               display: 'flex',
               justifyContent: 'center',
-              mb: 2,
-              p: 1.5,
+              mb: 2.5,
+              p: 2,
               borderRadius: 2,
-              bgcolor: 'rgba(0, 0, 0, 0.2)',
+              bgcolor: 'rgba(0, 0, 0, 0.25)',
               border: '1px solid',
               borderColor: 'divider',
             }}
           >
-            <ScenarioRadar stats={stats} size={160} />
+            <ScenarioRadar stats={stats} size={180} />
           </Box>
 
           {/* Winrate */}
-          <Box sx={{ textAlign: 'center', mb: 2 }}>
-            <Stack direction="row" justifyContent="center" alignItems="baseline" spacing={1}>
-              <Typography variant="body2" color="text.secondary">
+          <Box sx={{ textAlign: 'center', mb: 2.5 }}>
+            <Stack direction="row" justifyContent="center" alignItems="baseline" spacing={1.5}>
+              <Typography color="text.secondary" sx={{ fontSize: '1.05rem' }}>
                 Win Rate:
               </Typography>
-              <WinrateIndicator winrate={winrate} size="medium" sx={{ fontSize: '1.1rem' }} />
+              <WinrateIndicator winrate={winrate} size="medium" sx={{ fontSize: '1.35rem' }} />
             </Stack>
           </Box>
 
           {/* Punish Strategy */}
           <Box
             sx={{
-              p: 1.5,
+              p: 2,
               borderRadius: 2,
               bgcolor: 'action.hover',
               border: '1px solid',
               borderColor: 'divider',
             }}
           >
-            <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+            <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 1.5 }}>
               <Chip
                 label={actionConfig.label}
-                size="small"
                 sx={{
-                  bgcolor: `${actionConfig.color}25`,
+                  bgcolor: `${actionConfig.color}30`,
                   color: actionConfig.color,
                   fontWeight: 600,
-                  fontSize: '0.75rem',
-                  height: 24,
+                  fontSize: '0.9rem',
+                  height: 28,
                 }}
               />
-              <Typography variant="body2" color="text.secondary" sx={{ flex: 1 }}>
+              <Typography color="text.secondary" sx={{ flex: 1, fontSize: '1rem' }}>
                 Punish
               </Typography>
             </Stack>
             {punishStrategy.targets.length > 0 ? (
-              <Stack direction="row" flexWrap="wrap" gap={0.5}>
+              <Stack direction="row" flexWrap="wrap" gap={1}>
                 {punishStrategy.targets.map((target) => (
                   <ChampionChip
                     key={target}
@@ -190,7 +169,7 @@ export function ScenarioCard({ scenario, sx }: ScenarioCardProps) {
                 ))}
               </Stack>
             ) : (
-              <Typography variant="body2" color="text.secondary">
+              <Typography color="text.secondary" sx={{ fontSize: '1rem' }}>
                 {punishStrategy.description}
               </Typography>
             )}

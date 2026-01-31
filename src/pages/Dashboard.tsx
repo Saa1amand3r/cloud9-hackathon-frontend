@@ -17,11 +17,9 @@ import {
   PlayerAnalysisSection,
 } from '../components/sections';
 import {
-  InfoIcon,
   OverviewIcon,
   ChampionIcon,
   ScenarioIcon,
-  PlayerIcon,
 } from '../components/icons';
 
 const NAV_SECTIONS: NavSection[] = [

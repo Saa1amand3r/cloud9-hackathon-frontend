@@ -1,49 +1,67 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import type { OverviewAnalysis } from '../../types';
-import {RandomnessIndicator, SectionHeader} from '../dashboard';
+import { SectionHeader, RandomnessIndicator } from '../dashboard';
 import { semanticColors } from '../../theme';
 
 interface OverviewSectionProps {
   data: OverviewAnalysis;
 }
 
-const randomnessLabels: Record<string, { label: string; color: string }> = {
-  predictable: { label: 'predictable', color: semanticColors.positive.main },
-  moderate: { label: 'moderate', color: semanticColors.warning.main },
-  chaotic: { label: 'chaotic', color: semanticColors.danger.main },
-};
-
 export function OverviewSection({ data }: OverviewSectionProps) {
-  // const randomnessConfig = randomnessLabels[data.randomness];
-  const insightText = data.strategicInsights.join(' ');
-
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <SectionHeader id="overview" title="Overview"/>
-        <RandomnessIndicator level={"chaotic"} score={0.91} sx={{mb: 2}}/>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2 }}>
+        <SectionHeader id="overview" title="Overview" />
+        <RandomnessIndicator level={data.randomness} score={data.randomnessScore} sx={{ mb: 2 }} />
       </Box>
 
-      <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.7 }}>
-        {/*<Typography*/}
-        {/*  component="span"*/}
-        {/*  sx={{ fontWeight: 600, fontSize: 'inherit' }}*/}
-        {/*>*/}
-        {/*  Randomness:{' '}*/}
-        {/*</Typography>*/}
-        {/*<Typography*/}
-        {/*  component="span"*/}
-        {/*  sx={{ fontWeight: 600, color: randomnessConfig.color, fontSize: 'inherit' }}*/}
-        {/*>*/}
-        {/*  {randomnessConfig.label}*/}
-        {/*</Typography>*/}
-
-
-      </Typography>
-      <Typography component="span" sx={{ fontSize: 'inherit' }}>
-        {insightText}
-      </Typography>
+      {/* Strategic Insights as advice cards */}
+      <Stack spacing={2}>
+        {data.strategicInsights.map((insight, index) => (
+          <Box
+            key={index}
+            sx={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 2,
+              p: 2.5,
+              borderRadius: 2,
+              bgcolor: index === 0 ? `${semanticColors.warning.main}12` : 'action.hover',
+              borderLeft: '4px solid',
+              borderColor: index === 0 ? semanticColors.warning.main : semanticColors.accent.main,
+            }}
+          >
+            <Box
+              sx={{
+                width: 28,
+                height: 28,
+                borderRadius: '50%',
+                bgcolor: index === 0 ? `${semanticColors.warning.main}25` : `${semanticColors.accent.main}25`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                mt: 0.25,
+              }}
+            >
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  color: index === 0 ? semanticColors.warning.main : semanticColors.accent.main,
+                }}
+              >
+                {index + 1}
+              </Typography>
+            </Box>
+            <Typography sx={{ fontSize: '1.1rem', lineHeight: 1.6, flex: 1 }}>
+              {insight}
+            </Typography>
+          </Box>
+        ))}
+      </Stack>
     </Box>
   );
 }

@@ -19,30 +19,30 @@ export function StablePicksSection({ data }: StablePicksSectionProps) {
         subtitle="Consistent champion picks by role with performance data"
       />
 
-      <Stack spacing={3}>
+      <Stack spacing={4}>
         {data.map((roleData) => (
           <Box key={roleData.role}>
             {/* Role Header */}
-            <Stack direction="row" alignItems="center" gap={1} sx={{ mb: 1.5 }}>
-              <RoleIcon role={roleData.role} size={20} showTooltip={false} />
+            <Stack direction="row" alignItems="center" gap={1.5} sx={{ mb: 2 }}>
+              <RoleIcon role={roleData.role} size={28} showTooltip={false} />
               <Typography
-                variant="subtitle2"
-                sx={{ fontWeight: 600, textTransform: 'capitalize' }}
+                variant="h6"
+                sx={{ fontWeight: 600, textTransform: 'capitalize', fontSize: '1.25rem' }}
               >
                 {roleData.role}
               </Typography>
             </Stack>
 
-            {/* Champions Row */}
-            <Stack direction="row" flexWrap="wrap" gap={1.5}>
+            {/* Champions Row - matching Draft Tendencies size */}
+            <Stack direction="row" flexWrap="wrap" gap={2.5}>
               {roleData.picks.map((pick) => (
                 <Box
                   key={pick.championId}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 1.5,
-                    px: 2,
+                    gap: 2,
+                    px: 3,
                     py: 1.5,
                     borderRadius: 2,
                     bgcolor: 'background.paper',
@@ -51,7 +51,7 @@ export function StablePicksSection({ data }: StablePicksSectionProps) {
                       ? semanticColors.highlight.main
                       : 'divider',
                     boxShadow: pick.isSignaturePick
-                      ? `0 0 0 1px ${semanticColors.highlight.main}20`
+                      ? `0 0 0 2px ${semanticColors.highlight.main}30`
                       : 'none',
                     transition: 'all 0.2s ease',
                     '&:hover': {
@@ -61,21 +61,23 @@ export function StablePicksSection({ data }: StablePicksSectionProps) {
                   }}
                 >
                   <Box sx={{ position: 'relative' }}>
-                    <ChampionIcon championId={pick.championId} size={36} />
+                    <ChampionIcon championId={pick.championId} size={48} />
                     {pick.isSignaturePick && (
                       <Box
                         sx={{
                           position: 'absolute',
-                          top: -4,
-                          right: -4,
-                          width: 14,
-                          height: 14,
+                          top: -6,
+                          right: -6,
+                          width: 20,
+                          height: 20,
                           borderRadius: '50%',
                           bgcolor: semanticColors.highlight.main,
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          '& svg': { width: 8, height: 8, color: '#fff' },
+                          border: '2px solid',
+                          borderColor: 'background.paper',
+                          '& svg': { width: 10, height: 10, color: '#fff' },
                         }}
                       >
                         <StarIcon />
@@ -84,15 +86,14 @@ export function StablePicksSection({ data }: StablePicksSectionProps) {
                   </Box>
 
                   <Box>
-                    <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2 }}>
+                    <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', lineHeight: 1.2 }}>
                       {pick.championId}
                     </Typography>
-                    <Stack direction="row" alignItems="center" gap={1} sx={{ mt: 0.25 }}>
-                      <WinrateIndicator winrate={pick.winrate} size="small" />
+                    <Stack direction="row" alignItems="center" gap={1.5} sx={{ mt: 0.5 }}>
+                      <WinrateIndicator winrate={pick.winrate} size="medium" sx={{ fontSize: '1rem' }} />
                       <Typography
-                        variant="caption"
                         color="text.secondary"
-                        sx={{ fontVariantNumeric: 'tabular-nums' }}
+                        sx={{ fontVariantNumeric: 'tabular-nums', fontSize: '0.95rem' }}
                       >
                         {pick.gamesPlayed}G · {pick.kda.toFixed(1)} KDA
                       </Typography>

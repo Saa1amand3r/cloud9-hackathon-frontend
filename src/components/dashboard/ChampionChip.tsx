@@ -36,17 +36,17 @@ export function ChampionChip({
       sx={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 0.75,
-        px: 1,
-        py: 0.5,
-        borderRadius: 1,
+        gap: 1,
+        px: 1.5,
+        py: 0.75,
+        borderRadius: 1.5,
         border: '1px solid',
         ...styles,
         ...sx,
       }}
     >
-      <ChampionIcon championId={championId} size={20} showTooltip={false} />
-      <Typography variant="body2" sx={{ fontWeight: 500 }}>
+      <ChampionIcon championId={championId} size={28} showTooltip={false} />
+      <Typography sx={{ fontWeight: 600, fontSize: '1rem' }}>
         {championId}
       </Typography>
     </Box>

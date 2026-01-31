@@ -5,7 +5,7 @@ import Chip from '@mui/material/Chip';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import type { DraftPlan } from '../../types';
-import { SectionHeader, ChampionChip, InsightCard } from '../dashboard';
+import { SectionHeader, ChampionChip } from '../dashboard';
 import { semanticColors } from '../../theme';
 
 interface DraftPlanSectionProps {

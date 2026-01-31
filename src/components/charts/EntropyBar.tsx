@@ -34,37 +34,38 @@ export function EntropyBar({ players, height }: EntropyBarProps) {
     displayValue: (p.entropy * 100).toFixed(0),
   }));
 
-  const barHeight = 36;
-  const chartHeight = height || Math.max(200, data.length * barHeight + 40);
+  const barHeight = 48;
+  const chartHeight = height || Math.max(300, data.length * barHeight + 60);
 
   return (
     <ResponsiveContainer width="100%" height={chartHeight}>
       <BarChart
         data={data}
         layout="vertical"
-        margin={{ top: 5, right: 50, left: 70, bottom: 5 }}
+        margin={{ top: 10, right: 70, left: 100, bottom: 10 }}
       >
         <XAxis
           type="number"
           domain={[0, 1]}
           tickFormatter={(v) => `${(v * 100).toFixed(0)}%`}
-          tick={{ fill: theme.palette.text.secondary, fontSize: 11 }}
+          tick={{ fill: theme.palette.text.secondary, fontSize: 14, fontWeight: 500 }}
           axisLine={{ stroke: theme.palette.divider }}
           tickLine={false}
         />
         <YAxis
           type="category"
           dataKey="name"
-          tick={{ fill: theme.palette.text.primary, fontSize: 12, fontWeight: 500 }}
+          tick={{ fill: theme.palette.text.primary, fontSize: 16, fontWeight: 600 }}
           axisLine={false}
           tickLine={false}
-          width={65}
+          width={90}
         />
         <Bar
           dataKey="entropy"
-          radius={[0, 4, 4, 0]}
+          radius={[0, 6, 6, 0]}
           animationDuration={1000}
           animationEasing="ease-out"
+          barSize={32}
         >
           {data.map((entry, index) => (
             <Cell key={index} fill={getEntropyColor(entry.entropy)} />
@@ -74,9 +75,9 @@ export function EntropyBar({ players, height }: EntropyBarProps) {
             position="right"
             formatter={(v) => `${v}%`}
             style={{
-              fill: theme.palette.text.secondary,
-              fontSize: 11,
-              fontWeight: 500,
+              fill: theme.palette.text.primary,
+              fontSize: 15,
+              fontWeight: 600,
             }}
           />
         </Bar>
