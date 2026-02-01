@@ -11,9 +11,8 @@ export function ScenariosSection({ data }: ScenariosSectionProps) {
   const sortedScenarios = [...data].sort((a, b) => b.likelihood - a.likelihood);
 
   return (
-    <Box>
+    <Box id="scenarios" sx={{ scrollMarginTop: 80 }}>
       <SectionHeader
-        id="scenarios"
         title="Scenario Cards"
         subtitle="Predicted game scenarios with probability and counter-strategies"
       />

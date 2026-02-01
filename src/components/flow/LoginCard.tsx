@@ -64,7 +64,7 @@ export function LoginCard({ onLogin }: LoginCardProps) {
             mb: 1,
           }}
         >
-          Cloudy Poro
+          Cloud9
         </Typography>
 
         <Typography
@@ -75,7 +75,7 @@ export function LoginCard({ onLogin }: LoginCardProps) {
             lineHeight: 1.5,
           }}
         >
-          AI-powered esports analytics platform
+          Login into AI-powered esports analytics platform
         </Typography>
 
         <Button

@@ -236,22 +236,6 @@ export const mockTeamAnalysis: TeamAnalysisReport = {
       },
     },
     {
-      playerId: 'p5',
-      nickname: 'Bo',
-      role: 'jungle',
-      entropy: 0.71,
-      championPool: [
-        { championId: 'Skarner', gamesPlayed: 4, winrate: 75.0, isComfort: true },
-        { championId: 'Viego', gamesPlayed: 3, winrate: 66.7, isComfort: true },
-      ],
-      tendencies: {
-        earlyGameAggression: 0.80,
-        teamfightParticipation: 0.70,
-        soloKillRate: 0.55,
-        visionScore: 0.50,
-      },
-    },
-    {
       playerId: 'p3',
       nickname: 'SAKEN',
       role: 'mid',
@@ -266,70 +250,6 @@ export const mockTeamAnalysis: TeamAnalysisReport = {
         teamfightParticipation: 0.85,
         soloKillRate: 0.38,
         visionScore: 0.62,
-      },
-    },
-    {
-      playerId: 'p6',
-      nickname: 'Yike',
-      role: 'jungle',
-      entropy: 0.65,
-      championPool: [
-        { championId: 'Maokai', gamesPlayed: 6, winrate: 50.0, isComfort: true },
-        { championId: 'Sejuani', gamesPlayed: 4, winrate: 75.0, isComfort: true },
-      ],
-      tendencies: {
-        earlyGameAggression: 0.55,
-        teamfightParticipation: 0.88,
-        soloKillRate: 0.30,
-        visionScore: 0.72,
-      },
-    },
-    {
-      playerId: 'p7',
-      nickname: 'Caliste',
-      role: 'adc',
-      entropy: 0.62,
-      championPool: [
-        { championId: 'Jhin', gamesPlayed: 5, winrate: 60.0, isComfort: true },
-        { championId: 'Varus', gamesPlayed: 4, winrate: 50.0, isComfort: false },
-      ],
-      tendencies: {
-        earlyGameAggression: 0.45,
-        teamfightParticipation: 0.90,
-        soloKillRate: 0.25,
-        visionScore: 0.55,
-      },
-    },
-    {
-      playerId: 'p8',
-      nickname: 'Vladi',
-      role: 'support',
-      entropy: 0.58,
-      championPool: [
-        { championId: 'Rakan', gamesPlayed: 6, winrate: 55.6, isComfort: true },
-        { championId: 'Nautilus', gamesPlayed: 4, winrate: 60.0, isComfort: false },
-      ],
-      tendencies: {
-        earlyGameAggression: 0.60,
-        teamfightParticipation: 0.92,
-        soloKillRate: 0.15,
-        visionScore: 0.85,
-      },
-    },
-    {
-      playerId: 'p9',
-      nickname: 'Canna',
-      role: 'top',
-      entropy: 0.55,
-      championPool: [
-        { championId: 'Gnar', gamesPlayed: 5, winrate: 60.0, isComfort: true },
-        { championId: 'Renekton', gamesPlayed: 4, winrate: 50.0, isComfort: true },
-      ],
-      tendencies: {
-        earlyGameAggression: 0.70,
-        teamfightParticipation: 0.75,
-        soloKillRate: 0.48,
-        visionScore: 0.40,
       },
     },
     {

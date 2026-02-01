@@ -6,8 +6,7 @@ import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useTeamAnalysis } from '../hooks';
-import { SectionNav, AnimatedSection, DashboardSkeleton } from '../components/dashboard';
-import type { NavSection } from '../components/dashboard';
+import { AnimatedSection, DashboardSkeleton } from '../components/dashboard';
 import {
   ReportInfoSection,
   OverviewSection,
@@ -17,18 +16,7 @@ import {
   ScenariosSection,
   PlayerAnalysisSection,
 } from '../components/sections';
-import {
-  OverviewIcon,
-  ChampionIcon,
-  ScenarioIcon,
-} from '../components/icons';
 import { semanticColors } from '../theme';
-
-const NAV_SECTIONS: NavSection[] = [
-  { id: 'overview', label: 'Overview', icon: <OverviewIcon /> },
-  { id: 'stable-picks', label: 'Stable Picks', icon: <ChampionIcon /> },
-  { id: 'scenarios', label: 'Scenarios', icon: <ScenarioIcon /> },
-];
 
 const SearchIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -166,12 +154,6 @@ export function Dashboard({ teamId = 'karmine-corp', searchQuery, onNewSearch }:
           </Container>
         </Box>
       )}
-
-      {/* Side Navigation */}
-      <SectionNav
-        sections={NAV_SECTIONS}
-        sx={{ display: { xs: 'none', md: 'flex' } }}
-      />
 
       {/* Main Content */}
       <Container

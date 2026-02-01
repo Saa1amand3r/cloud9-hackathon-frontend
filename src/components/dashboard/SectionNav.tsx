@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import type { SxProps, Theme } from '@mui/material/styles';
@@ -18,35 +18,40 @@ interface SectionNavProps {
 export function SectionNav({ sections, sx }: SectionNavProps) {
   const [activeSection, setActiveSection] = useState<string>(sections[0]?.id || '');
 
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+  const updateActiveSection = useCallback(() => {
+    const scrollTop = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const offset = viewportHeight * 0.3; // Consider section active when it's in top 30% of viewport
 
-    sections.forEach((section) => {
+    let currentSection = sections[0]?.id || '';
+
+    for (const section of sections) {
       const element = document.getElementById(section.id);
-      if (!element) return;
+      if (!element) continue;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveSection(section.id);
-            }
-          });
-        },
-        {
-          rootMargin: '-20% 0px -70% 0px',
-          threshold: 0,
-        }
-      );
+      const rect = element.getBoundingClientRect();
+      const elementTop = rect.top + scrollTop;
 
-      observer.observe(element);
-      observers.push(observer);
-    });
+      // If the section starts before the offset point, it's the current section
+      if (scrollTop + offset >= elementTop) {
+        currentSection = section.id;
+      }
+    }
+
+    setActiveSection(currentSection);
+  }, [sections]);
+
+  useEffect(() => {
+    // Initial check
+    updateActiveSection();
+
+    // Listen to scroll events
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
 
     return () => {
-      observers.forEach((observer) => observer.disconnect());
+      window.removeEventListener('scroll', updateActiveSection);
     };
-  }, [sections]);
+  }, [updateActiveSection]);
 
   const handleClick = (sectionId: string) => {
     const element = document.getElementById(sectionId);

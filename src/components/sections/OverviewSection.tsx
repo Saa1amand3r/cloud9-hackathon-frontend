@@ -11,9 +11,9 @@ interface OverviewSectionProps {
 
 export function OverviewSection({ data }: OverviewSectionProps) {
   return (
-    <Box>
+    <Box id="overview" sx={{ scrollMarginTop: 80 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2 }}>
-        <SectionHeader id="overview" title="Overview" />
+        <SectionHeader title="Overview" />
         <RandomnessIndicator level={data.randomness} score={data.randomnessScore} sx={{ mb: 2 }} />
       </Box>
 

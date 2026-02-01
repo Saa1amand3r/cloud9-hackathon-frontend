@@ -30,7 +30,7 @@ export function SearchPage({ onSearch }: SearchPageProps) {
     setTeamName(name);
   };
 
-  const suggestedTeams = ['T1', 'Gen.G', 'Fnatic', 'G2 Esports', 'Team Liquid'];
+  const suggestedTeams = ['T1', 'Karmine Corp', 'Fnatic', 'G2 Esports', 'Team Liquid'];
 
   return (
     <Box

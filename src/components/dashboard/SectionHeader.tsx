@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import type { SxProps, Theme } from '@mui/material/styles';
 
 interface SectionHeaderProps {
-  id: string;
+  id?: string;
   title: string;
   subtitle?: string;
   action?: React.ReactNode;
@@ -26,7 +26,7 @@ export function SectionHeader({
         justifyContent: 'space-between',
         gap: 2,
         mb: 2,
-        scrollMarginTop: 80,
+        ...(id && { scrollMarginTop: 80 }),
         ...sx,
       }}
     >

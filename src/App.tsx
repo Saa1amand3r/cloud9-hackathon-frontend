@@ -4,6 +4,15 @@ import IconButton from '@mui/material/IconButton';
 import { useThemeMode } from './contexts/ThemeContext';
 import { Dashboard } from './pages';
 import { LoginCard, SearchPage, ReportLoading } from './components/flow';
+import { SectionNav } from './components/dashboard';
+import type { NavSection } from './components/dashboard';
+import { OverviewIcon, ChampionIcon, ScenarioIcon } from './components/icons';
+
+const NAV_SECTIONS: NavSection[] = [
+  { id: 'overview', label: 'Overview', icon: <OverviewIcon /> },
+  { id: 'stable-picks', label: 'Stable Picks', icon: <ChampionIcon /> },
+  { id: 'scenarios', label: 'Scenarios', icon: <ScenarioIcon /> },
+];
 
 type FlowState = 'login' | 'search' | 'loading' | 'dashboard';
 
@@ -76,6 +85,14 @@ function App() {
 
   return (
     <Box sx={{ minHeight: '100vh' }}>
+      {/* Section Navigation - Outside transformed container for proper fixed positioning */}
+      {flowState === 'dashboard' && (
+        <SectionNav
+          sections={NAV_SECTIONS}
+          sx={{ display: { xs: 'none', md: 'flex' } }}
+        />
+      )}
+
       {/* Theme Toggle - Fixed position */}
       <IconButton
         onClick={toggleTheme}

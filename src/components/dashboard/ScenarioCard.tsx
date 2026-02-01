@@ -154,9 +154,6 @@ export function ScenarioCard({ scenario, sx }: ScenarioCardProps) {
                   height: 28,
                 }}
               />
-              <Typography color="text.secondary" sx={{ flex: 1, fontSize: '1rem' }}>
-                Punish
-              </Typography>
             </Stack>
             {punishStrategy.targets.length > 0 ? (
               <Stack direction="row" flexWrap="wrap" gap={1}>

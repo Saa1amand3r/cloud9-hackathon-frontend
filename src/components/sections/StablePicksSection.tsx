@@ -12,9 +12,8 @@ interface StablePicksSectionProps {
 
 export function StablePicksSection({ data }: StablePicksSectionProps) {
   return (
-    <Box>
+    <Box id="stable-picks" sx={{ scrollMarginTop: 80 }}>
       <SectionHeader
-        id="stable-picks"
         title="Stable Picks"
         subtitle="Consistent champion picks by role with performance data"
       />
