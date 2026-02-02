@@ -4,10 +4,11 @@ import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 import { createReportWebSocket, type ReportProgress } from '../../services/reportWebSocket';
 import { semanticColors } from '../../theme';
+import type { TeamAnalysisReport } from '../../types';
 
 interface ReportLoadingProps {
   teamName: string;
-  onComplete: () => void;
+  onComplete: (report?: TeamAnalysisReport) => void;
 }
 
 export function ReportLoading({ teamName, onComplete }: ReportLoadingProps) {
@@ -29,7 +30,7 @@ export function ReportLoading({ teamName, onComplete }: ReportLoadingProps) {
 
       if (p.status === 'completed') {
         // Small delay before transitioning to show 100%
-        setTimeout(onComplete, 500);
+        setTimeout(() => onComplete(p.report), 500);
       }
     });
 

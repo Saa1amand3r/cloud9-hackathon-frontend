@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import type { TeamAnalysisReport, TeamAnalysisRequest } from '../types';
 import { fetchTeamAnalysis, ApiClientError } from '../api/client';
 
@@ -22,18 +22,18 @@ const EMPTY_STATE: UseTeamAnalysisState = {
 export function useTeamAnalysis(
   request: TeamAnalysisRequest | null
 ): UseTeamAnalysisReturn {
-  // Use initial state based on whether request is provided
-  const initialState = useMemo<UseTeamAnalysisState>(
-    () => (request ? { data: null, isLoading: true, error: null } : EMPTY_STATE),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [] // Only compute once on mount
-  );
-
-  const [state, setState] = useState<UseTeamAnalysisState>(initialState);
+  const [state, setState] = useState<UseTeamAnalysisState>(EMPTY_STATE);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
-    if (!request) return;
+    // If no request, reset to empty state (don't fetch)
+    if (!request) {
+      setState(EMPTY_STATE);
+      return;
+    }
+
+    // Start loading
+    setState({ data: null, isLoading: true, error: null });
 
     // Abort previous request if any
     abortControllerRef.current?.abort();

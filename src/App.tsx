@@ -7,6 +7,7 @@ import { LoginCard, SearchPage, ReportLoading } from './components/flow';
 import { SectionNav } from './components/dashboard';
 import type { NavSection } from './components/dashboard';
 import { OverviewIcon, ChampionIcon, ScenarioIcon } from './components/icons';
+import type { TeamAnalysisReport } from './types';
 
 const NAV_SECTIONS: NavSection[] = [
   { id: 'overview', label: 'Overview', icon: <OverviewIcon /> },
@@ -33,6 +34,7 @@ function App() {
   const [flowState, setFlowState] = useState<FlowState>('login');
   const [searchQuery, setSearchQuery] = useState('');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [reportData, setReportData] = useState<TeamAnalysisReport | null>(null);
 
   const handleLogin = useCallback(() => {
     setIsTransitioning(true);
@@ -51,7 +53,8 @@ function App() {
     }, 300);
   }, []);
 
-  const handleLoadingComplete = useCallback(() => {
+  const handleLoadingComplete = useCallback((report?: TeamAnalysisReport) => {
+    setReportData(report || null);
     setIsTransitioning(true);
     setTimeout(() => {
       setFlowState('dashboard');
@@ -64,6 +67,7 @@ function App() {
     setTimeout(() => {
       setFlowState('search');
       setSearchQuery('');
+      setReportData(null);
       setIsTransitioning(false);
     }, 300);
   }, []);
@@ -93,7 +97,7 @@ function App() {
       case 'loading':
         return <ReportLoading teamName={searchQuery} onComplete={handleLoadingComplete} />;
       case 'dashboard':
-        return <Dashboard searchQuery={searchQuery} onNewSearch={handleNewSearch} />;
+        return <Dashboard teamId={searchQuery} searchQuery={searchQuery} onNewSearch={handleNewSearch} initialData={reportData} />;
       case 'analytics':
         return <Analytics onBack={handleBackToLogin} />;
       default:

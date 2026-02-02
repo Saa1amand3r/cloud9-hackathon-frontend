@@ -17,6 +17,7 @@ import {
   PlayerAnalysisSection,
 } from '../components/sections';
 import { semanticColors } from '../theme';
+import type { TeamAnalysisReport } from '../types';
 
 const SearchIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -28,11 +29,18 @@ interface DashboardProps {
   teamId?: string;
   searchQuery?: string;
   onNewSearch?: () => void;
+  initialData?: TeamAnalysisReport | null;
 }
 
-export function Dashboard({ teamId = 'karmine-corp', searchQuery, onNewSearch }: DashboardProps) {
-  const request = useMemo(() => ({ teamId }), [teamId]);
-  const { data, isLoading, error } = useTeamAnalysis(request);
+export function Dashboard({ teamId = 'karmine-corp', searchQuery, onNewSearch, initialData }: DashboardProps) {
+  // Only fetch if we don't have initialData from WebSocket
+  const request = useMemo(() => initialData ? null : { teamId }, [teamId, initialData]);
+  const { data: fetchedData, isLoading: isFetching, error } = useTeamAnalysis(request);
+
+  // Use initialData if available, otherwise use fetched data
+  const data = initialData || fetchedData;
+  // Only show loading if we're fetching AND don't have initialData
+  const isLoading = isFetching && !initialData;
 
   if (isLoading) {
     return (

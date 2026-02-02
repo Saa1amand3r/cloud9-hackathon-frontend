@@ -1,4 +1,5 @@
 import { config as appConfig } from '../config';
+import type { TeamAnalysisReport } from '../types';
 
 export type ReportStatus = 'connecting' | 'processing' | 'completed' | 'error';
 
@@ -6,6 +7,7 @@ export interface ReportProgress {
   status: ReportStatus;
   progress: number; // 0-100
   message?: string;
+  report?: TeamAnalysisReport; // Report data when completed
 }
 
 export interface ReportWebSocketConfig {
@@ -69,9 +71,15 @@ export function createReportWebSocket(wsConfig: ReportWebSocketConfig = {}) {
 
     ws.onmessage = (event) => {
       try {
-        const data = JSON.parse(event.data) as ReportProgress;
+        const data = JSON.parse(event.data);
         console.log('[WebSocket] Progress:', data.progress, data.status, data.message);
-        onProgressCallback?.(data);
+        const progress: ReportProgress = {
+          status: data.status,
+          progress: data.progress,
+          message: data.message,
+          report: data.report, // Extract report if present in completed message
+        };
+        onProgressCallback?.(progress);
       } catch {
         console.error('[WebSocket] Failed to parse message:', event.data);
       }
