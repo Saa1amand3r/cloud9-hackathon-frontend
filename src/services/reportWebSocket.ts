@@ -1,3 +1,5 @@
+import { config as appConfig } from '../config';
+
 export type ReportStatus = 'connecting' | 'processing' | 'completed' | 'error';
 
 export interface ReportProgress {
@@ -11,6 +13,8 @@ export interface ReportWebSocketConfig {
   url?: string;
   /** Use fake/demo mode */
   useFake?: boolean;
+  /** Our team name for matchup context */
+  ourTeam?: string;
 }
 
 type ProgressCallback = (progress: ReportProgress) => void;
@@ -19,13 +23,19 @@ type ProgressCallback = (progress: ReportProgress) => void;
  * WebSocket service for report generation progress.
  *
  * Usage with real backend:
- * const ws = createReportWebSocket({ url: 'wss://api.example.com/reports' });
+ * const ws = createReportWebSocket();
  *
  * Usage with fake (demo mode):
  * const ws = createReportWebSocket({ useFake: true });
+ *
+ * Configuration is loaded from environment variables by default.
  */
-export function createReportWebSocket(config: ReportWebSocketConfig = {}) {
-  const { url, useFake = true } = config;
+export function createReportWebSocket(wsConfig: ReportWebSocketConfig = {}) {
+  const {
+    url = appConfig.wsUrl,
+    useFake = appConfig.useMock,
+    ourTeam = appConfig.ourTeam,
+  } = wsConfig;
 
   let ws: WebSocket | null = null;
   let onProgressCallback: ProgressCallback | null = null;
@@ -42,28 +52,38 @@ export function createReportWebSocket(config: ReportWebSocketConfig = {}) {
       throw new Error('WebSocket URL is required when not using fake mode');
     }
 
+    console.log('[WebSocket] Connecting to:', url);
     ws = new WebSocket(url);
 
     ws.onopen = () => {
+      console.log('[WebSocket] Connected, sending generate request for:', teamName);
       onProgressCallback?.({ status: 'connecting', progress: 0 });
       // Send the team name to start report generation
-      ws?.send(JSON.stringify({ action: 'generate', teamName }));
+      ws?.send(JSON.stringify({
+        action: 'generate',
+        teamName,
+        opponentName: teamName,
+        ourTeam,
+      }));
     };
 
     ws.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data) as ReportProgress;
+        console.log('[WebSocket] Progress:', data.progress, data.status, data.message);
         onProgressCallback?.(data);
       } catch {
-        console.error('Failed to parse WebSocket message');
+        console.error('[WebSocket] Failed to parse message:', event.data);
       }
     };
 
-    ws.onerror = () => {
+    ws.onerror = (error) => {
+      console.error('[WebSocket] Error:', error);
       onProgressCallback?.({ status: 'error', progress: 0, message: 'Connection failed' });
     };
 
-    ws.onclose = () => {
+    ws.onclose = (event) => {
+      console.log('[WebSocket] Closed:', event.code, event.reason);
       ws = null;
     };
   };

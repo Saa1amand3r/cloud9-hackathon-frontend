@@ -20,8 +20,8 @@ export function ReportLoading({ teamName, onComplete }: ReportLoadingProps) {
   const wsRef = useRef<ReturnType<typeof createReportWebSocket> | null>(null);
 
   useEffect(() => {
-    // Create WebSocket connection
-    const ws = createReportWebSocket({ useFake: true });
+    // Create WebSocket connection (uses config defaults)
+    const ws = createReportWebSocket();
     wsRef.current = ws;
 
     ws.onProgress((p) => {

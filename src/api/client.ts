@@ -1,6 +1,7 @@
 import type { TeamAnalysisReport, TeamAnalysisRequest } from '../types';
+import { config } from '../config';
 
-const API_BASE = '/api';
+const API_BASE = config.apiBaseUrl;
 
 interface ApiError {
   code: string;
@@ -38,6 +39,7 @@ export async function fetchTeamAnalysis(
   const { teamId, timeframe, includePlayerAnalysis } = request;
 
   const params = new URLSearchParams();
+  params.set('ourTeam', config.ourTeam);
   if (timeframe?.startDate) params.set('startDate', timeframe.startDate);
   if (timeframe?.endDate) params.set('endDate', timeframe.endDate);
   if (timeframe?.patchVersion) params.set('patchVersion', timeframe.patchVersion);
@@ -47,7 +49,7 @@ export async function fetchTeamAnalysis(
   }
 
   const queryString = params.toString();
-  const url = `${API_BASE}/teams/${teamId}/analysis${queryString ? `?${queryString}` : ''}`;
+  const url = `${API_BASE}/api/teams/${teamId}/analysis${queryString ? `?${queryString}` : ''}`;
 
   const response = await fetch(url);
   return handleResponse<TeamAnalysisReport>(response);
