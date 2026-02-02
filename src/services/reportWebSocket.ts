@@ -73,6 +73,18 @@ export function createReportWebSocket(wsConfig: ReportWebSocketConfig = {}) {
       try {
         const data = JSON.parse(event.data);
         console.log('[WebSocket] Progress:', data.progress, data.status, data.message);
+
+        if (data.report) {
+          console.log('[WebSocket] Report received:', {
+            keys: Object.keys(data.report),
+            teamName: data.report.reportInfo?.teamName,
+            gamesAnalyzed: data.report.reportInfo?.gamesAnalyzed,
+            scenariosCount: data.report.scenarios?.length,
+            playersCount: data.report.playerAnalysis?.length,
+            stablePicksCount: data.report.stablePicks?.length,
+          });
+        }
+
         const progress: ReportProgress = {
           status: data.status,
           progress: data.progress,
