@@ -5,9 +5,10 @@ import { semanticColors } from '../../theme';
 
 interface LoginCardProps {
   onLogin: () => void;
+  onAnalytics?: () => void;
 }
 
-export function LoginCard({ onLogin }: LoginCardProps) {
+export function LoginCard({ onLogin, onAnalytics }: LoginCardProps) {
   return (
     <Box
       sx={{
@@ -96,6 +97,30 @@ export function LoginCard({ onLogin }: LoginCardProps) {
         >
           Login as Cloud9
         </Button>
+
+        {onAnalytics && (
+          <Button
+            variant="outlined"
+            size="large"
+            onClick={onAnalytics}
+            fullWidth
+            sx={{
+              mt: 2,
+              py: 1.5,
+              fontSize: '1rem',
+              fontWeight: 600,
+              borderRadius: 2,
+              borderColor: semanticColors.highlight.main,
+              color: semanticColors.highlight.main,
+              '&:hover': {
+                borderColor: semanticColors.highlight.light,
+                bgcolor: `${semanticColors.highlight.main}10`,
+              },
+            }}
+          >
+            Explore Meta Insights
+          </Button>
+        )}
 
         <Typography
           color="text.secondary"

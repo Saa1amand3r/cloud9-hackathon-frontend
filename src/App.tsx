@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { useThemeMode } from './contexts/ThemeContext';
-import { Dashboard } from './pages';
+import { Dashboard, Analytics } from './pages';
 import { LoginCard, SearchPage, ReportLoading } from './components/flow';
 import { SectionNav } from './components/dashboard';
 import type { NavSection } from './components/dashboard';
@@ -14,7 +14,7 @@ const NAV_SECTIONS: NavSection[] = [
   { id: 'scenarios', label: 'Scenarios', icon: <ScenarioIcon /> },
 ];
 
-type FlowState = 'login' | 'search' | 'loading' | 'dashboard';
+type FlowState = 'login' | 'search' | 'loading' | 'dashboard' | 'analytics';
 
 const LightModeIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -68,16 +68,34 @@ function App() {
     }, 300);
   }, []);
 
+  const handleAnalytics = useCallback(() => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setFlowState('analytics');
+      setIsTransitioning(false);
+    }, 300);
+  }, []);
+
+  const handleBackToLogin = useCallback(() => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setFlowState('login');
+      setIsTransitioning(false);
+    }, 300);
+  }, []);
+
   const renderContent = () => {
     switch (flowState) {
       case 'login':
-        return <LoginCard onLogin={handleLogin} />;
+        return <LoginCard onLogin={handleLogin} onAnalytics={handleAnalytics} />;
       case 'search':
         return <SearchPage onSearch={handleSearch} />;
       case 'loading':
         return <ReportLoading teamName={searchQuery} onComplete={handleLoadingComplete} />;
       case 'dashboard':
         return <Dashboard searchQuery={searchQuery} onNewSearch={handleNewSearch} />;
+      case 'analytics':
+        return <Analytics onBack={handleBackToLogin} />;
       default:
         return null;
     }
